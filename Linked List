@@ -1,1 +1,119 @@
+struct node {
+    int data;
+    node* next;
+};
 
+class linkedList {
+    private:
+        node* head;
+        node* tail;
+        int sz;
+    public:
+        linkedList () {
+            head = NULL;
+            tail = NULL;
+            sz = 0;
+        }
+        int Size() {
+            return sz;
+        }
+        bool isEmpty() {
+            return head == NULL;
+        }
+        void pushFront(int x) {
+            node* tmp = new node;
+            tmp->data = x;
+            if (isEmpty()) {
+                tmp->next = NULL;
+                tail = tmp;
+            } else {
+                tmp->next = head;
+            }
+            head = tmp;
+            sz++;
+        }
+        void pushBack(int x) {
+            node* tmp = new node;
+            tmp->data = x;
+            tmp->next = NULL;
+            if (isEmpty()) {
+                head = tmp;
+            } else {
+                tail->next = tmp;
+            }
+            tail = tmp;
+            sz++;
+        }
+        void Insert(int x, int pos) {
+            if (pos <= 0 || sz + 1 < pos) {
+                cout << "Out of bounds" << endl;
+                return;
+            }
+            if (pos == 1) {
+                pushFront(x);
+            } else if (pos == sz + 1) {
+                pushBack(x);
+            } else {
+                node* cur = head;
+                node* tmp = new node;
+                tmp->data = x;
+                for (int i = 0; i < pos - 2; i++) {
+                    cur = cur->next;
+                }
+                tmp->next = cur->next;
+                cur->next = tmp;
+            }
+            sz++;
+        }
+        void Delete(int x) {
+            if (isEmpty()) {
+                return;
+            }
+            node* cur = head;
+            node* prev;
+            bool found = false;
+            while (cur != NULL) {
+                if (cur->data == x) {
+                    found = true;
+                    break;
+                }
+                prev = cur;
+                cur = cur->next;
+            }
+            if (!found) {
+                return;
+            }
+            if (cur == head && cur == tail) {
+                head = NULL;
+                tail = NULL;
+            } else if (cur == head) {
+                head = cur->next;
+            } else if (cur == tail) {
+                prev->next = NULL;
+                tail = prev;
+            } else {
+                prev->next = cur->next;
+            }
+            sz -= found;
+        }
+        int Find(int x) {
+            node* cur = head;
+            int i = 1;
+            while (cur != NULL) {
+                if (cur->data == x) {
+                    return i;
+                }
+                cur = cur->next;
+                i++;
+            }
+            return -1;
+        }
+        void display() {
+            node* cur = head;
+            while (cur != NULL) {
+                cout << cur->data << ' ';
+                cur = cur->next;
+            }
+            cout << endl;
+        }
+};
