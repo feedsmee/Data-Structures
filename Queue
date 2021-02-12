@@ -1,0 +1,80 @@
+const int SIZE = 100;
+
+class Queue {
+    private:
+        int val[SIZE];
+        int Front;
+        int rear;
+        int capacity;
+        int sz;
+
+    public:
+        Queue() {
+
+            Front = 0;
+            rear = -1;
+            capacity = SIZE;
+            sz = 0;
+            memset(val, 0, sizeof val);
+        }
+
+    int Size() {
+
+        return sz;
+    }
+
+    bool isEmpty() {
+
+        return Size() == 0;
+    }
+
+    bool isFull() {
+
+        return Size() == capacity;
+    }
+
+    void push(int x) {
+
+        if (isFull()) {
+            cout << "Queue is full" << endl;
+            exit(EXIT_FAILURE);
+        }
+
+        rear = (rear + 1) % capacity;
+        val[rear] = x;
+        ++sz;
+    }
+
+    void pop() {
+
+        if (isEmpty()) {
+            cout << "Queue is empty" << endl;
+            exit(EXIT_FAILURE);
+        }
+
+        val[Front] = 0;
+        Front = (Front + 1) % capacity;
+        --sz;
+    }
+
+    int top() {
+
+        if (isEmpty()) {
+            cout << "Queue is empty" << endl;
+            exit(EXIT_FAILURE);
+        }
+
+        return val[Front];
+    }
+
+    int Back() {
+
+        if (isEmpty()) {
+            cout << "Queue is empty" << endl;
+            exit(EXIT_FAILURE);
+        }
+
+        return val[rear];
+    }
+
+};
