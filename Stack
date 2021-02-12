@@ -1,0 +1,64 @@
+const int SIZE = 100;
+
+class Stack {
+    private:
+        int val[SIZE];
+        int top;
+        int capacity;
+        int sz;
+
+    public:
+        Stack() {
+
+            top = -1;
+            capacity = SIZE;
+            sz = 0;
+            memset(val, 0, sizeof val);
+        }
+
+        int Size() {
+
+            return sz;
+        }
+
+        bool isEmpty() {
+
+            return Size() == 0;
+        }
+
+        bool isFull() {
+
+            return Size() == capacity;
+        }
+
+        void push(int x) {
+
+            if (isFull()) {
+                cout << "Stack is full" << endl;
+                exit(EXIT_FAILURE);
+            }
+
+            ++top, ++sz;
+            val[top] = x;
+        }
+
+        void pop() {
+
+            if (isEmpty()) {
+                cout << "Stack is Empty" << endl;
+                exit(EXIT_FAILURE);
+            }
+
+            val[top] = 0;
+            --top, --sz;
+        }
+
+        int Top() {
+
+            if (isEmpty()) {
+                cout << "Stack is Empty" << endl;
+                exit(EXIT_FAILURE);
+            }
+            return val[top];
+        }
+};
